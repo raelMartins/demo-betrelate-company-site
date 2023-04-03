@@ -29,3 +29,25 @@
     @content;
   }
 }
+
+@mixin darkButton {
+  cursor: pointer;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1.8rem 3.2rem;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.8rem;
+  line-height: 100%;
+  border: none;
+  outline: none;
+  border-radius: 0.4rem;
+  transition: 0.3s;
+  &:hover {
+    background-color: darken(#673692, 5);
+  }
+  &:disabled {
+    opacity: 0.6;
+    cursor: wait;
+  }
+}

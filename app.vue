@@ -7,6 +7,7 @@ useServerSeoMeta({
   ogImage: '/images/betrelate-icon.png',
   twitterCard: 'summary_large_image'
 });
+
 useHead({
   link: [{ rel: 'icon', href: '/images/betrelate-icon.png' }]
 });
@@ -45,6 +46,10 @@ body {
   --letter-spacing: -0.018216rem;
   --success-color: #4cd964;
   --error-color: #ea4335;
+
+  --toastify-color-success: #673692;
+  --toastify-color-error: #b42616;
+  --toastify-toast-width: 46rem;
 }
 
 input,
@@ -56,5 +61,8 @@ textarea {
 a {
   color: inherit;
   text-decoration: none;
+}
+.Toastify__toast-container {
+  font-size: 1.6rem;
 }
 </style>

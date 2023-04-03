@@ -72,18 +72,8 @@
         margin-top: 7rem;
         margin-bottom: 4rem;
         button {
-          cursor: pointer;
-          background-color: var(--primary-color);
-          color: white;
-          padding: 1.9rem;
+          @include darkButton;
           min-width: 23rem;
-          text-align: center;
-          font-weight: 500;
-          font-size: 1.8rem;
-          line-height: 100%;
-          border: none;
-          outline: none;
-          border-radius: 0.4rem;
         }
       }
       a {
