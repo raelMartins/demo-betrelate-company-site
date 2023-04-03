@@ -51,3 +51,35 @@
     cursor: wait;
   }
 }
+
+@mixin scrollbar {
+  /* width */
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: var(--primaryColor);
+    border-radius: 1rem;
+  }
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--textColor);
+  }
+}
+
+@mixin centerImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background-color: whitesmoke;
+  position: relative;
+  img {
+    width: 100%;
+  }
+}

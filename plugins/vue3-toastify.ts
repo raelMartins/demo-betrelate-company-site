@@ -4,7 +4,7 @@ import 'vue3-toastify/dist/index.css';
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(Vue3Toastify, {
     position: 'top-center',
-    autoClose: 5000,
+    autoClose: 2500,
     hideProgressBar: true,
     newestOnTop: true,
     closeOnClick: true,

@@ -11,7 +11,7 @@ useServerSeoMeta({
   ogDescription: 'Login with your company details!'
 });
 
-//funtion to login with
+//function to login with
 const loginToCompanyAccount = catchAsyncError(async (e: any) => {
   e.preventDefault();
   e.target.disabled = true;

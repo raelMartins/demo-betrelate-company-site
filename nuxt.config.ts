@@ -4,5 +4,6 @@ export default defineNuxtConfig({
     public: {
       BASE_URL: process.env.BASE_URL
     }
-  }
+  },
+  buildModules: ['@nuxt/image']
 });
