@@ -13,6 +13,7 @@
 </template>
 
 <style lang="scss">
+@import '~/assets/styles/mixins.module.scss';
 .main {
   display: flex;
   min-height: 100vh;
@@ -91,13 +92,21 @@
     }
   }
   .right {
-    background-color: #672693;
-    width: 59.7rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: sticky;
-    top: 0;
+    display: none;
+    @include tablet {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #672693;
+      width: 40rem;
+      position: sticky;
+      top: 0;
+      padding: 1rem;
+      height: 100vh;
+    }
+    @include laptop {
+      width: 59.7rem;
+    }
   }
 }
 </style>
