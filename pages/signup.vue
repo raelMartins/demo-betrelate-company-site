@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { toast } from 'vue3-toastify';
 
-const name = useState('name', () => '');
-const email = useState('email', () => '');
-const phone = useState('phone', () => '');
-const password = useState('password', () => '');
+const name = ref('');
+const email = ref('');
+const phone = ref('');
+const password = ref('');
 
 definePageMeta({
   title: 'Create your Company Account',

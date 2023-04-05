@@ -5,5 +5,6 @@ export default defineNuxtConfig({
       BASE_URL: process.env.BASE_URL
     }
   },
-  buildModules: ['@nuxt/image']
+  buildModules: ['@nuxt/image'],
+  components: [{ path: '~/components/adverts', prefix: 'Ads' }, '~/components']
 });

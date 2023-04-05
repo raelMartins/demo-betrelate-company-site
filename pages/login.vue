@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { toast } from 'vue3-toastify';
-const email = useState('email', () => '');
-const password = useState('password', () => '');
+const email = ref('');
+const password = ref('');
 
 definePageMeta({
   layout: 'login-layout'
@@ -53,15 +53,13 @@ const loginToCompanyAccount = catchAsyncError(async (e: any) => {
       <form class="account_access_form login" @submit="loginToCompanyAccount">
         <div class="form_field">
           <label>Company Email</label>
-          <input type="text" v-model="email" autoComplete="new-password" />
+          <input type="text" v-model="email" />
+          <!-- autoComplete="new-password" -->
         </div>
         <div class="form_field">
           <label>Password</label>
-          <input
-            type="password"
-            v-model="password"
-            autoComplete="new-password"
-          />
+          <input type="password" v-model="password" />
+          <!-- autoComplete="new-password" -->
         </div>
         <div class="submit_button">
           <button @click="loginToCompanyAccount">Login</button>
