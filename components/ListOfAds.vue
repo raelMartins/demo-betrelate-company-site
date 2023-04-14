@@ -1,38 +1,24 @@
 <script setup lang="ts">
-import axios from 'axios';
-
 const adverts: any = ref([]);
 const noOfAds = ref(0);
 const activeTab = ref('all');
 
-const switchTab = (tab: string) => {
+const switchTab = catchAsyncError(async (tab: string) => {
   activeTab.value = tab;
-};
+  await getAllAdverts();
+});
 
 const token = useCookie('betrelatecompanytoken').value;
 
-// const { data, pending, error, refresh } = await useFetch(
-//   '/company/advert/getAdItems',
-//   {
-//     method: 'GET',
-//     headers: { Authorization: 'Bearer ' + token },
-//     baseURL: useRuntimeConfig().BASE_URL
-//   }
-// );
+const getAllAdverts = async () => {
+  const res: any = await getAds(token);
+  console.log(res);
 
-// const res = await axios({
-//   method: 'GET',
-//   url: `${useRuntimeConfig().BASE_URL}/company/advert/getAdItems`,
-//   headers: { Authorization: 'Bearer ' + token }
-// });
+  adverts.value = res.data;
+  noOfAds.value = res.data.length;
+};
 
-const res: any = await getAds(token);
-// const res: any = await getAllAdverts(token);
-
-console.log(res);
-
-adverts.value = res.data;
-noOfAds.value = res.data.length;
+getAllAdverts();
 
 const activestyle = 'background-color: var(--primary-color); color: white';
 </script>
@@ -104,6 +90,8 @@ const activestyle = 'background-color: var(--primary-color); color: white';
   background-color: white;
   padding: 4rem 3rem;
   border-radius: 1rem;
+  min-height: 50rem;
+  // height: 100%;
   .advert_filters {
     display: flex;
     align-items: center;
@@ -118,7 +106,8 @@ const activestyle = 'background-color: var(--primary-color); color: white';
       color: #999999;
       background: #ececec;
       border-radius: 0.4rem;
-      width: 10rem;
+      flex: 1;
+      // width: 10rem;
       max-width: 100%;
       cursor: pointer;
       transition: 0.3s;

@@ -1,18 +1,52 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const showNotifs = useState<boolean>('showNotifs', () => false);
+const notifications = useState<any[]>('allNotifications', () => []);
+const loading = useState<boolean>('loadingNotifs', () => false);
+const profile = useState<any>('profile');
+
+const token = useCookie('betrelatecompanytoken').value;
+
+const getNotifications = catchAsyncError(async (e: any) => {
+  try {
+    loading.value = true;
+    const res = await getAllNotifications(token);
+    // const res: any = [];
+    notifications.value = res;
+    console.log(res);
+
+    loading.value = false;
+  } catch (err: any) {
+    console.log(err);
+    console.log(err.response);
+    loading.value = false;
+  }
+});
+onMounted((e: void) => {
+  getNotifications(e);
+});
+
+const openNotifs = (e: any) => {
+  showNotifs.value = true;
+  getNotifications(e);
+};
+</script>
 <template>
   <header class="dashboard_header">
     <div class="header_container">
-      <div class="company_notifications">
-        <SvgsNotificationSVG />
-        <span class="unread_notifications">1</span>
+      <div class="company_notifications" @click="openNotifs">
+        <i class="pi pi-bell"></i>
+        <!-- <SvgsNotificationSVG /> -->
+        <span class="unread_notifications" v-if="notifications.length > 0">{{
+          notifications.length
+        }}</span>
       </div>
       <div class="company_info">
         <div class="company_text">
-          <div class="company_name">Betrelate</div>
+          <div class="company_name">{{ profile.companyName }}</div>
           <div class="company_type">BUSINESS ACCOUNT</div>
         </div>
         <div class="company_image">
-          <img src="/images/betrelate-icon.png" alt="nothing really" />
+          <img :src="profile.profilePic" alt="nothing really" />
         </div>
       </div>
     </div>
@@ -32,6 +66,10 @@
     padding: 0.1rem 1rem;
     cursor: pointer;
     position: relative;
+    .pi {
+      font-size: 3.6rem;
+      color: var(--form-text);
+    }
     .unread_notifications {
       position: absolute;
       bottom: 0.2rem;

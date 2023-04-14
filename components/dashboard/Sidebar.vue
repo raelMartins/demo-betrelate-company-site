@@ -1,32 +1,63 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const show = ref(true);
+const profile = useState<any>('profile');
+
+const showNav = () => {
+  show.value = !show.value;
+};
+</script>
 <template>
-  <div class="dashboard_sidebar">
-    <div class="logo">
-      <SvgsBetrelateSVG />
+  <div class="sidebar_container">
+    <div class="sidebar_hamburger_menu" @click="showNav">
+      <i class="pi pi-bars"></i>
     </div>
-    <div class="company_info">
-      <div class="company_image">
-        <img src="/images/betrelate-icon.png" alt="nothing really" />
+    <div
+      class="dashboard_sidebar"
+      :style="show ? { transform: 'translateX(0%)' } : {}"
+    >
+      <div class="close_button" @click="showNav">
+        <i class="pi pi-times"></i>
       </div>
-      <div class="company_name">Betrelate</div>
-      <div class="company_type">BUSINESS ACCOUNT</div>
+      <div class="logo">
+        <SvgsBetrelateSVG />
+      </div>
+      <div class="company_info">
+        <div class="company_image">
+          <img :src="profile.profilePic" alt="nothing really" />
+        </div>
+        <div class="company_name">{{ profile.companyName }}</div>
+        <div class="company_type">BUSINESS ACCOUNT</div>
+      </div>
+      <hr />
+      <nav class="navigation_links">
+        <NuxtLink href="/dashboard" class="nav_link"
+          ><SvgsDashboardSVG />Dashboard</NuxtLink
+        >
+        <NuxtLink href="/adverts" class="nav_link"
+          ><i class="pi pi-megaphone"></i>Adverts</NuxtLink
+        >
+        <NuxtLink href="/transaction-history" class="nav_link"
+          ><i class="pi pi-dollar"></i>Transaction History</NuxtLink
+        >
+      </nav>
     </div>
-    <hr />
-    <nav class="navigation_links">
-      <NuxtLink href="/dashboard" class="nav_link"
-        ><SvgsDashboardSVG />Dashboard</NuxtLink
-      >
-      <NuxtLink href="/adverts" class="nav_link"
-        ><SvgsDashboardSVG />Adverts</NuxtLink
-      >
-      <NuxtLink href="/transaction-history" class="nav_link"
-        ><SvgsDashboardSVG />Transaction History</NuxtLink
-      >
-    </nav>
   </div>
 </template>
 <style lang="scss">
 @import '~/assets/styles/mixins.module.scss';
+.sidebar_container {
+  position: relative;
+  .sidebar_hamburger_menu {
+    position: absolute;
+    top: 1.6rem;
+    left: 1.6rem;
+    cursor: pointer;
+    color: var(--primary-color);
+    .pi {
+      font-size: 2.6rem;
+    }
+  }
+}
 .dashboard_sidebar {
   width: 18rem;
   padding: 3.2rem 4rem;
@@ -34,8 +65,32 @@
   flex-direction: column;
   align-items: center;
   height: 100vh;
-  position: sticky;
-  top: 0;
+  position: fixed;
+  top: 0rem;
+  left: 0rem;
+  bottom: 0rem;
+  background-color: white;
+  box-shadow: var(--primary-box-shadow);
+  transform: translateX(-100%);
+  transition: 0.3s;
+  z-index: 5;
+  @include desktop {
+    position: sticky;
+    transform: translateX(0%);
+    top: 0;
+    box-shadow: none;
+  }
+  .close_button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.6rem;
+    cursor: pointer;
+    color: var(--primary-color);
+    @include desktop {
+      display: none;
+    }
+  }
   .logo {
     margin-bottom: 4.2rem;
   }
@@ -94,6 +149,11 @@
       // background-color: var(--light-purple);
       border-radius: 0.4rem;
       color: #6e6378;
+      .pi {
+        color: var(--primary-color);
+        font-size: 2rem;
+        margin-right: 0.3rem;
+      }
     }
   }
 }

@@ -32,6 +32,11 @@ definePageMeta({
   .dashboard_container {
     display: flex;
     gap: 0.6rem;
+    flex-direction: column;
+    margin-bottom: 3rem;
+    @include laptop {
+      flex-direction: row;
+    }
     .dashboard_left_content {
       flex: 1;
       display: flex;
@@ -40,6 +45,7 @@ definePageMeta({
     }
     .dashboard_right_content {
       flex: 1;
+      gap: 2rem;
     }
   }
 }

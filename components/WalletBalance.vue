@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const profile = useState<any>('profile');
+
+console.log(profile.value.wallet);
+</script>
 
 <template>
   <section class="wallet_balance">
@@ -7,7 +11,7 @@
     </div>
     <div class="balance">
       <span class="wallet_caption">Wallet Balance</span>
-      <span class="wallet_amount">N20,000</span>
+      <span class="wallet_amount">N{{ profile.wallet }}</span>
     </div>
     <div class="fund_wallet">
       <button>Fund Wallet</button>
@@ -48,6 +52,13 @@
   .fund_wallet {
     button {
       @include darkButton;
+      @include laptop {
+        padding: 1rem 2rem;
+        font-size: 1.4rem;
+      }
+      @include desktop {
+        @include darkButton;
+      }
     }
   }
 }

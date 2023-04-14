@@ -6,3 +6,13 @@ export type ImagePickerType = {
     width: string | number;
   };
 };
+
+export type NotificationType = {
+  content: string | null;
+  createdAt: string;
+  id: string;
+  entityId: string;
+  read: boolean;
+  title: string;
+  type: string;
+};

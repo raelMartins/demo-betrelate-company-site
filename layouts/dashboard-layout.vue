@@ -1,8 +1,20 @@
+<script setup lang="ts">
+const profile = useState('profile', () => null);
+const token = useCookie('betrelatecompanytoken').value;
+
+const res: any = await getProfile(token);
+
+console.log(res.data);
+
+profile.value = res.data;
+</script>
+
 <template>
   <main class="main">
     <DashboardSidebar />
     <div class="content">
       <DashboardHeader />
+      <DashboardNotificationSidebar />
       <slot />
     </div>
   </main>
