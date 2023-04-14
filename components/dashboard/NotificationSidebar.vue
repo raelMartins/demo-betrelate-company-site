@@ -16,7 +16,7 @@ const viewNotification = catchAsyncError(async (notif: NotificationType) => {
     const res = await markNotificationAsRead(token, notif.id);
     console.log(res);
     if (notif.type === 'advert') {
-      location.assign(`/adverts/${notif.entityId}`);
+      location.assign(`/ads/${notif.entityId}`);
     } else if (notif.type === 'wallet') {
       location.assign(`/transaction-history`);
     }

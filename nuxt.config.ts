@@ -6,5 +6,5 @@ export default defineNuxtConfig({
     }
   },
   buildModules: ['@nuxt/image'],
-  components: [{ path: '~/components/adverts', prefix: 'Ads' }, '~/components']
+  components: [{ path: '~/components/ads', prefix: 'Ads' }, '~/components']
 });

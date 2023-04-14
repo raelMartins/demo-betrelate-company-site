@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const show = ref(true);
+const show = ref(false);
 const profile = useState<any>('profile');
 
 const showNav = () => {
@@ -33,7 +33,7 @@ const showNav = () => {
         <NuxtLink href="/dashboard" class="nav_link"
           ><SvgsDashboardSVG />Dashboard</NuxtLink
         >
-        <NuxtLink href="/adverts" class="nav_link"
+        <NuxtLink href="/ads" class="nav_link"
           ><i class="pi pi-megaphone"></i>Adverts</NuxtLink
         >
         <NuxtLink href="/transaction-history" class="nav_link"

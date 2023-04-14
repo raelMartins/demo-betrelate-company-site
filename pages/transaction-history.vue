@@ -11,7 +11,9 @@ definePageMeta({
     <section>
       <header class="page_header">
         <h1 class="page_title">Transaction History</h1>
-        <button class="header_action_button">Create New Ad</button>
+        <NuxtLink href="/ads/create" class="header_action_button"
+          >Create New Ad</NuxtLink
+        >
       </header>
       <ListOfTransactions />
     </section>

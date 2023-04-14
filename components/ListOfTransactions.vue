@@ -26,7 +26,7 @@ const activestyle = 'background-color: var(--primary-color); color: white';
 
 <template>
   <section class="transactions_list">
-    <!-- <OverlayLoader test="try" /> -->
+    <OverlayLoader test="try" />
     <div class="transactions_header">
       <div class="header">Transaction History</div>
       <div class="view_all">View All</div>

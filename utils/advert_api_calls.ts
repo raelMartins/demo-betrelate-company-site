@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const getAllAdverts = async (token: string | null) => {
+export const getAllAds = async (token: string | null) => {
   const { data, pending, error, refresh } = await useFetch(
     '/company/advert/getAdItems',
     {

@@ -1,31 +1,31 @@
 <script setup lang="ts">
-const adverts: any = ref([]);
+const ads: any = ref([]);
 const noOfAds = ref(0);
 const activeTab = ref('all');
 
 const switchTab = catchAsyncError(async (tab: string) => {
   activeTab.value = tab;
-  await getAllAdverts();
+  await getAllAds();
 });
 
 const token = useCookie('betrelatecompanytoken').value;
 
-const getAllAdverts = async () => {
+const getAllAds = async () => {
   const res: any = await getAds(token);
   console.log(res);
 
-  adverts.value = res.data;
+  ads.value = res.data;
   noOfAds.value = res.data.length;
 };
 
-getAllAdverts();
+getAllAds();
 
 const activestyle = 'background-color: var(--primary-color); color: white';
 </script>
 
 <template>
-  <section class="adverts_list">
-    <div class="advert_filters">
+  <section class="ads_list">
+    <div class="ad_filters">
       <span
         class="filter_option"
         @click="switchTab('all')"
@@ -51,30 +51,30 @@ const activestyle = 'background-color: var(--primary-color); color: white';
         >Rejected</span
       >
     </div>
-    <div class="advert_total">
+    <div class="ad_total">
       <div class="total">Total Ads: {{ noOfAds }}</div>
       <div class="view_all">View All</div>
     </div>
     <ul class="list_of_ads">
-      <li class="ad_list_item" v-for="advert in adverts">
+      <li class="ad_list_item" v-for="advert in ads">
         <div class="company_image">
           <img :src="advert.asset" alt="company-image" />
         </div>
-        <div class="advert_date">
+        <div class="ad_date">
           <span class="caption">Start Date</span>
           <span class="date">{{ simpleDateFormat(advert.startDate) }}</span>
         </div>
-        <div class="advert_date">
+        <div class="ad_date">
           <span class="caption">End Date</span>
           <span class="date">{{ simpleDateFormat(advert.endDate) }}</span>
         </div>
-        <div class="advert_status">
+        <div class="ad_status">
           <span class="caption">Status</span>
           <span class="status">{{ advert.status }}</span>
         </div>
-        <div class="advert_action">
+        <div class="ad_action">
           <span class="caption">Action</span>
-          <NuxtLink :href="`/adverts/${advert.adID}`" class="action">
+          <NuxtLink :href="`/ads/${advert.adID}`" class="action">
             View Details
           </NuxtLink>
         </div>
@@ -86,13 +86,13 @@ const activestyle = 'background-color: var(--primary-color); color: white';
 <style lang="scss">
 @import '~/assets/styles/mixins.module.scss';
 
-.adverts_list {
+.ads_list {
   background-color: white;
   padding: 4rem 3rem;
   border-radius: 1rem;
   min-height: 50rem;
   // height: 100%;
-  .advert_filters {
+  .ad_filters {
     display: flex;
     align-items: center;
     gap: 0.8rem;
@@ -117,7 +117,7 @@ const activestyle = 'background-color: var(--primary-color); color: white';
       }
     }
   }
-  .advert_total {
+  .ad_total {
     padding: 2.2rem 3rem;
     margin-left: -3rem;
     border-bottom: 0.1rem solid #eeeeee;
@@ -154,9 +154,9 @@ const activestyle = 'background-color: var(--primary-color); color: white';
       height: 6rem;
       border-radius: 1rem;
     }
-    .advert_date,
-    .advert_status,
-    .advert_action {
+    .ad_date,
+    .ad_status,
+    .ad_action {
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -174,7 +174,7 @@ const activestyle = 'background-color: var(--primary-color); color: white';
         color: #999999;
       }
     }
-    .advert_status {
+    .ad_status {
       .status {
         text-transform: capitalize;
         font-weight: 500;
@@ -191,7 +191,7 @@ const activestyle = 'background-color: var(--primary-color); color: white';
         border: 0.1rem solid #f6c358;
       }
     }
-    .advert_action {
+    .ad_action {
       text-decoration: underline;
       font-weight: 500;
       font-size: 1.6rem;
