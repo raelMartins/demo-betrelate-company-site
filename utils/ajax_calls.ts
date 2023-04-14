@@ -55,13 +55,15 @@ export const getProfile = async (token: string | null) => {
   // return res.data;
 };
 
-export const getAds = async (token: string | null) => {
+export const getAds = async (token: string | null, info: any = {}) => {
+  const { status = 'pending' } = info;
   const { data, pending, error, refresh } = await useFetch(
     '/company/advert/getAdItems',
     {
       method: 'GET',
       headers: { Authorization: 'Bearer ' + token },
-      baseURL: useRuntimeConfig().BASE_URL
+      baseURL: useRuntimeConfig().BASE_URL,
+      query: { status }
     }
   );
 

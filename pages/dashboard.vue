@@ -38,15 +38,13 @@ definePageMeta({
     margin-bottom: 3rem;
     @include laptop {
       flex-direction: row;
+      align-items: stretch;
     }
-    .dashboard_left_content {
+    .dashboard_left_content,
+    .dashboard_right_content {
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 2rem;
-    }
-    .dashboard_right_content {
-      flex: 1;
       gap: 2rem;
     }
   }

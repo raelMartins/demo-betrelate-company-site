@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const transactions: any = ref([]);
 const days = ref('30');
+const loading = ref(false);
 
 const switchTab = catchAsyncError(async (tab: string) => {
   days.value = tab;
@@ -11,10 +12,13 @@ const token = useCookie('betrelatecompanytoken').value;
 
 const getAllTransactions = async () => {
   try {
+    loading.value = true;
     const res: any = await getTransactions(token, { days: days.value });
     console.log(res);
     transactions.value = res.data;
+    loading.value = false;
   } catch (err) {
+    loading.value = false;
     console.log(err);
   }
 };
@@ -26,7 +30,6 @@ const activestyle = 'background-color: var(--primary-color); color: white';
 
 <template>
   <section class="transactions_list">
-    <OverlayLoader test="try" />
     <div class="transactions_header">
       <div class="header">Transaction History</div>
       <div class="view_all">View All</div>
@@ -56,8 +59,9 @@ const activestyle = 'background-color: var(--primary-color); color: white';
       <span>Amount</span>
       <span>Date</span>
     </div>
-    <ul class="list_of_transactions" v-for="transaction in transactions">
-      <li class="transaction">
+    <ul class="list_of_transactions">
+      <OverlayLoader :loading="loading" />
+      <li class="transaction" v-for="transaction in transactions">
         <span class="transaction_description">
           <span class="transaction_type">
             <i
@@ -156,6 +160,8 @@ const activestyle = 'background-color: var(--primary-color); color: white';
     list-style: none;
     margin: 0rem;
     padding: 0rem;
+    position: relative;
+    min-height: 20rem;
     .transaction {
       display: flex;
       gap: 1.2rem;

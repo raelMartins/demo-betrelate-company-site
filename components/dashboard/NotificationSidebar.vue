@@ -73,8 +73,11 @@ const viewNotification = catchAsyncError(async (notif: NotificationType) => {
         </div>
         <div v-else>
           <h4>Recent</h4>
-          <ul v-for="notif in notifications">
+          <ul class="notifications_list">
+            <OverlayLoader :loading="loading" />
+
             <li
+              v-for="notif in notifications"
               :class="`notification ${!notif.read ? `unseen` : ''}`"
               @click="() => viewNotification(notif)"
             >
@@ -198,10 +201,11 @@ const viewNotification = catchAsyncError(async (notif: NotificationType) => {
         width: 100%;
         background-color: rgba(255, 255, 255, 0.6);
       }
-      ul {
+      .notifications_list {
         margin: 0rem;
         padding: 0rem;
         list-style-type: none;
+        position: relative;
         .notification {
           padding: 2rem 4rem;
           display: flex;

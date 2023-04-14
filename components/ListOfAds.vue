@@ -1,21 +1,29 @@
 <script setup lang="ts">
 const ads: any = ref([]);
 const noOfAds = ref(0);
-const activeTab = ref('all');
+const status = ref('all');
+const loading = ref(false);
 
 const switchTab = catchAsyncError(async (tab: string) => {
-  activeTab.value = tab;
+  status.value = tab;
   await getAllAds();
 });
 
 const token = useCookie('betrelatecompanytoken').value;
 
 const getAllAds = async () => {
-  const res: any = await getAds(token);
-  console.log(res);
+  try {
+    loading.value = true;
+    const res: any = await getAds(token, { status: status.value });
+    console.log(res);
 
-  ads.value = res.data;
-  noOfAds.value = res.data.length;
+    ads.value = res.data;
+    noOfAds.value = res.data.length;
+    loading.value = false;
+  } catch (err) {
+    loading.value = false;
+    console.log(err);
+  }
 };
 
 getAllAds();
@@ -29,25 +37,31 @@ const activestyle = 'background-color: var(--primary-color); color: white';
       <span
         class="filter_option"
         @click="switchTab('all')"
-        :style="activeTab === 'all' ? activestyle : ``"
+        :style="status === 'all' ? activestyle : ``"
         >All</span
       >
       <span
         class="filter_option"
+        @click="switchTab('pending')"
+        :style="status === 'pending' ? activestyle : ``"
+        >Pending</span
+      >
+      <span
+        class="filter_option"
         @click="switchTab('ongoing')"
-        :style="activeTab === 'ongoing' ? activestyle : ``"
+        :style="status === 'ongoing' ? activestyle : ``"
         >Ongoing</span
       >
       <span
         class="filter_option"
         @click="switchTab('completed')"
-        :style="activeTab === 'completed' ? activestyle : ``"
+        :style="status === 'completed' ? activestyle : ``"
         >Completed</span
       >
       <span
         class="filter_option"
         @click="switchTab('rejected')"
-        :style="activeTab === 'rejected' ? activestyle : ``"
+        :style="status === 'rejected' ? activestyle : ``"
         >Rejected</span
       >
     </div>
@@ -56,6 +70,7 @@ const activestyle = 'background-color: var(--primary-color); color: white';
       <div class="view_all">View All</div>
     </div>
     <ul class="list_of_ads">
+      <OverlayLoader :loading="loading" />
       <li class="ad_list_item" v-for="advert in ads">
         <div class="company_image">
           <img :src="advert.asset" alt="company-image" />
@@ -92,6 +107,7 @@ const activestyle = 'background-color: var(--primary-color); color: white';
   border-radius: 1rem;
   min-height: 50rem;
   // height: 100%;
+  height: 100%;
   .ad_filters {
     display: flex;
     align-items: center;
@@ -137,6 +153,8 @@ const activestyle = 'background-color: var(--primary-color); color: white';
     margin: 0rem;
     padding: 0rem;
     list-style: none;
+    position: relative;
+    min-height: 20rem;
   }
   .ad_list_item {
     color: #404040;
