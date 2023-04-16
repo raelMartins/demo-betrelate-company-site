@@ -109,13 +109,17 @@ const activestyle = 'background-color: var(--primary-color); color: white';
   // height: 100%;
   height: 100%;
   .ad_filters {
-    display: flex;
     align-items: center;
     gap: 0.8rem;
     font-weight: 500;
     font-size: 1.2rem;
     line-height: 1.4rem;
     margin-bottom: 1.2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    @include tablet {
+      display: flex;
+    }
     .filter_option {
       padding: 1.2rem 2rem;
       text-align: center;

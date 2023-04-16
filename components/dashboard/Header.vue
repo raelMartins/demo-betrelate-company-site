@@ -120,7 +120,7 @@ const openNotifs = (e: any) => {
     border-radius: 0.4rem;
   }
   hr {
-    width: calc(100% + 6rem);
+    width: calc(100% + 3rem);
     margin: 2rem 0rem;
     margin-left: -3rem;
   }

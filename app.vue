@@ -58,6 +58,9 @@ button,
 textarea {
   font-family: 'Work Sans', sans-serif;
 }
+* {
+  box-sizing: border-box;
+}
 
 a {
   color: inherit;

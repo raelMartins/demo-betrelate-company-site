@@ -30,6 +30,12 @@ console.log(profile.value.wallet);
   justify-content: center;
   gap: 1.1rem;
   min-height: 14rem;
+  flex-direction: column;
+  text-align: center;
+  @include tablet {
+    flex-direction: row;
+    text-align: left;
+  }
   .balance {
     flex: 1;
     display: flex;
@@ -52,12 +58,9 @@ console.log(profile.value.wallet);
   .fund_wallet {
     button {
       @include darkButton;
-      @include laptop {
-        padding: 1rem 2rem;
-        font-size: 1.4rem;
-      }
-      @include desktop {
-        @include darkButton;
+      width: 25rem;
+      @include tablet {
+        width: max-content;
       }
     }
   }

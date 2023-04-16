@@ -37,9 +37,10 @@ const submitImage = catchAsyncError(async (e: any) => {
   if (!companyImage.value.imageFile) {
     throw new Error('Please select an image to upload');
   }
-  const formData = new FormData();
-  formData.append('image', companyImage.value.imageFile);
-  const res = await uploadCompanyImage(companytoken.value, { formData });
+
+  const data = new FormData();
+  data.append('image', companyImage.value.imageFile);
+  const res = await uploadCompanyImage(companytoken.value, data);
   console.log(res);
   toast.success('Profile Image Updated Succesfully!');
   location.assign('/dashboard');

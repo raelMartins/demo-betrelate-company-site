@@ -30,8 +30,12 @@ profile.value = res.data;
     // display: flex;
     // align-items: center;
     // justify-content: center;
-    background: #f6f6f6;
-    padding: 3rem;
+    padding: 1rem;
+    background-color: white;
+    @include tablet {
+      background: #f6f6f6;
+      padding: 3rem;
+    }
     .page_header {
       display: flex;
       align-items: center;

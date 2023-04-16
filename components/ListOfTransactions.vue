@@ -112,13 +112,17 @@ const activestyle = 'background-color: var(--primary-color); color: white';
     }
   }
   .transaction_filters {
-    display: flex;
     align-items: center;
     gap: 0.8rem;
     font-weight: 500;
     font-size: 1.2rem;
     line-height: 1.4rem;
     margin-bottom: 1.2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    @include tablet {
+      display: flex;
+    }
     .filter_option {
       padding: 1.2rem 2rem;
       text-align: center;
@@ -154,6 +158,12 @@ const activestyle = 'background-color: var(--primary-color); color: white';
     span:nth-child(1) {
       flex: 2;
       text-align: left;
+    }
+    span:last-of-type {
+      display: none;
+      @include largephone {
+        display: inline-block;
+      }
     }
   }
   .list_of_transactions {
@@ -198,6 +208,10 @@ const activestyle = 'background-color: var(--primary-color); color: white';
       .transaction_date {
         flex: 1;
         text-align: right;
+        display: none;
+        @include largephone {
+          display: inline-block;
+        }
       }
     }
   }

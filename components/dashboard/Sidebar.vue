@@ -59,7 +59,7 @@ const showNav = () => {
   }
 }
 .dashboard_sidebar {
-  width: 18rem;
+  min-width: 18rem;
   padding: 3.2rem 4rem;
   display: flex;
   flex-direction: column;
