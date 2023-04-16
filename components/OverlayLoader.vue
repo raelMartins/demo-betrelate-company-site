@@ -12,9 +12,6 @@ const styling = ref({
 watch(
   () => props.loading,
   (loading) => {
-    console.log('Loading changed');
-    console.log(loading);
-
     if (loading) {
       styling.value = {
         ...styling.value,

@@ -116,14 +116,30 @@ export const getProfile = async (token: string | null) => {
     throw new Error(error.value.message);
   }
   return data.value;
+};
 
-  // const res = await axios({
-  //   method: 'GET',
-  //   url: `${useRuntimeConfig().BASE_URL}/company/advert/getAdItems`,
-  //   headers: { Authorization: 'Bearer ' + token }
-  // });
+export const requestEmailVerification = async (token: string | null) => {
+  const res = await axios({
+    method: 'POST',
+    url: `${useRuntimeConfig().BASE_URL}/company/auth/requestEmailVerification`,
+    headers: { Authorization: 'Bearer ' + token }
+  });
+  return res.data;
+};
 
-  // return res.data;
+export const completeCompanyEmailVerification = async ({
+  email = '',
+  code = ''
+}: {
+  email: string;
+  code: string;
+}) => {
+  const res = await axios({
+    method: 'POST',
+    url: `${useRuntimeConfig().BASE_URL}/company/auth/verifyEmail`,
+    data: { email, code }
+  });
+  return res.data;
 };
 
 export const getAds = async (token: string | null, info: any = {}) => {
@@ -142,14 +158,6 @@ export const getAds = async (token: string | null, info: any = {}) => {
     throw new Error(error.value.message);
   }
   return data.value;
-
-  // const res = await axios({
-  //   method: 'GET',
-  //   url: `${useRuntimeConfig().BASE_URL}/company/advert/getAdItems`,
-  //   headers: { Authorization: 'Bearer ' + token }
-  // });
-
-  // return res.data;
 };
 
 export const getTransactions = async (token: string | null, info: any = {}) => {
@@ -167,14 +175,6 @@ export const getTransactions = async (token: string | null, info: any = {}) => {
     throw new Error(error.value.message);
   }
   return data.value;
-
-  // const res = await axios({
-  //   method: 'GET',
-  //   url: `${useRuntimeConfig().BASE_URL}/company/advert/getAdItems`,
-  //   headers: { Authorization: 'Bearer ' + token }
-  // });
-
-  // return res.data;
 };
 
 export const uploadCompanyImage = async (token: string | null, data: any) => {

@@ -38,17 +38,17 @@ const createCompanyAccount = catchAsyncError(async (e: any) => {
   });
   console.log(res);
 
-  //save the token and expiry date into cookies
-  // const companytoken = useCookie('betrelatecompanytoken', {
-  //   path: '/',
-  //   maxAge: 15768000
-  // });
-  // companytoken.value = res.token.token;
-  // const companytokenexpiry = useCookie('companytokenexpiry', {
-  //   path: '/',
-  //   maxAge: 15768000
-  // });
-  // companytokenexpiry.value = res.token.expire_at;
+  // save the token and expiry date into cookies
+  const companytoken = useCookie('betrelatecompanytoken', {
+    path: '/',
+    maxAge: 15768000
+  });
+  companytoken.value = res.token.token;
+  const companytokenexpiry = useCookie('companytokenexpiry', {
+    path: '/',
+    maxAge: 15768000
+  });
+  companytokenexpiry.value = res.token.expire_at;
 
   //alert the user they are logged in
   toast.success('Account Created Successfully');
