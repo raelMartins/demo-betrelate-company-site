@@ -3,14 +3,14 @@ const transactions: any = ref([]);
 const days = ref('30');
 const loading = ref(false);
 
-const switchTab = catchAsyncError(async (tab: string) => {
+const switchTab = async (tab: string) => {
   days.value = tab;
   await getAllTransactions();
-});
+};
 
 const token = useCookie('betrelatecompanytoken').value;
 
-const getAllTransactions = async () => {
+const getAllTransactions = catchAsyncError(async () => {
   try {
     loading.value = true;
     const res: any = await getTransactions(token, { days: days.value });
@@ -19,11 +19,15 @@ const getAllTransactions = async () => {
     loading.value = false;
   } catch (err) {
     loading.value = false;
-    console.log(err);
+    throw err;
   }
-};
+});
 
-getAllTransactions();
+onMounted(() => {
+  setTimeout(() => {
+    getAllTransactions();
+  }, 10);
+});
 
 const activestyle = 'background-color: var(--primary-color); color: white';
 </script>
@@ -73,10 +77,12 @@ const activestyle = 'background-color: var(--primary-color); color: white';
               v-else-if="transaction.transaction_type === `debit`"
             ></i>
           </span>
-          {{ transaction.transaction_description }}</span
+          {{
+            transaction.transaction_description.replace('#', '&#8358;')
+          }}</span
         >
         <span class="transaction_amount"
-          >N{{ transaction.transaction_amount }}</span
+          >&#8358;{{ transaction.transaction_amount }}</span
         >
         <span class="transaction_date">{{
           simpleDateFormat(transaction.createdAt)

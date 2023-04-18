@@ -4,29 +4,32 @@ const noOfAds = ref(0);
 const status = ref('all');
 const loading = ref(false);
 
-const switchTab = catchAsyncError(async (tab: string) => {
+const switchTab = async (tab: string) => {
   status.value = tab;
   await getAllAds();
-});
+};
 
 const token = useCookie('betrelatecompanytoken').value;
 
-const getAllAds = async () => {
+const getAllAds = catchAsyncError(async () => {
   try {
     loading.value = true;
     const res: any = await getAds(token, { status: status.value });
     console.log(res);
-
     ads.value = res.data;
     noOfAds.value = res.data.length;
     loading.value = false;
   } catch (err) {
     loading.value = false;
-    console.log(err);
+    throw err;
   }
-};
+});
 
-getAllAds();
+onMounted(() => {
+  setTimeout(() => {
+    getAllAds();
+  }, 10);
+});
 
 const activestyle = 'background-color: var(--primary-color); color: white';
 </script>

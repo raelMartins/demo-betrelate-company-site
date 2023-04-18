@@ -10,7 +10,13 @@
         Advert Insight
       </h1>
     </div>
-    <div class=""></div>
+    <div class="advert_insight">
+      <div class="advert_overview"></div>
+      <div class="advert_details">
+        <div class="advert_audience"></div>
+        <div class="advert_spending_analysis"></div>
+      </div>
+    </div>
   </section>
 </template>
 

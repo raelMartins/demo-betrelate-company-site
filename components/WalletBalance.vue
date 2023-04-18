@@ -1,7 +1,5 @@
 <script setup lang="ts">
 const profile = useState<any>('profile');
-
-console.log(profile.value.wallet);
 </script>
 
 <template>
@@ -11,7 +9,7 @@ console.log(profile.value.wallet);
     </div>
     <div class="balance">
       <span class="wallet_caption">Wallet Balance</span>
-      <span class="wallet_amount">N{{ profile.wallet }}</span>
+      <span class="wallet_amount">&#8358;{{ profile.wallet }}</span>
     </div>
     <div class="fund_wallet">
       <button>Fund Wallet</button>

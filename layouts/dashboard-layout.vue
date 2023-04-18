@@ -1,16 +1,24 @@
 <script setup lang="ts">
 const profile = useState('profile', () => null);
-const token = useCookie('betrelatecompanytoken').value;
 
-const res: any = await getProfile(token);
+const getCompanyProfile = async () => {
+  try {
+    const companytoken = useCookie('betrelatecompanytoken').value;
+    // const newToken = await checkLoggedIn();
+    const res: any = await getProfile(companytoken);
+    console.log(res.data);
 
-console.log(res.data);
+    profile.value = res.data;
+  } catch (err) {
+    catchServerSideError(err);
+  }
+};
 
-profile.value = res.data;
+getCompanyProfile();
 </script>
 
 <template>
-  <main class="main">
+  <main class="main" v-if="profile">
     <DashboardSidebar />
     <div class="content">
       <DashboardHeader />

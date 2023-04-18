@@ -6,7 +6,7 @@ const profile = useState<any>('profile');
 
 const token = useCookie('betrelatecompanytoken').value;
 
-const getNotifications = catchAsyncError(async (e: any) => {
+const getNotifications = catchAsyncError(async () => {
   try {
     loading.value = true;
     const res = await getAllNotifications(token);
@@ -16,18 +16,17 @@ const getNotifications = catchAsyncError(async (e: any) => {
 
     loading.value = false;
   } catch (err: any) {
-    console.log(err);
-    console.log(err.response);
     loading.value = false;
+    throw err;
   }
 });
-onMounted((e: void) => {
-  getNotifications(e);
+onMounted(() => {
+  getNotifications();
 });
 
-const openNotifs = (e: any) => {
+const openNotifs = () => {
   showNotifs.value = true;
-  getNotifications(e);
+  getNotifications();
 };
 </script>
 <template>

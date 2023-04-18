@@ -133,7 +133,7 @@ export const dynamicTextareaHeight = (e: any) => {
 // a basic error catcher for wrapping functions
 // containing ajax requests
 export function catchAsyncError(fn: any) {
-  return async function (e: any) {
+  return async function (e: any = null) {
     //using a normal function rather than an arrow function
     //in order to have access to
     //this particular functions arguments
@@ -153,37 +153,22 @@ export function catchAsyncError(fn: any) {
 // This method catches errors in the getServerSideProps aspect
 // of a page, taking them to the login page if they're logged out
 // or to the site landing page if it is a server error
-export function catchServerSideError(err: any) {
-  console.log(err);
+export async function catchServerSideError(err: any) {
   if (
-    err.message === 'loggedout' ||
-    (err.response && err.response.status === 401)
+    err.message === 'not-authenticated' ||
+    err.code == 401 ||
+    (err.response && err.response.status == 401)
   ) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false
-      }
-    };
+    // await navigateTo('/login', { replace: true });
+    location.assign('/login');
   } else if (
-    err.code === 404 ||
-    err.code === 403 ||
-    (err.response && err.response.status === 403) ||
-    (err.response && err.response.status === 404)
+    err.code == 404 ||
+    err.code == 403 ||
+    (err.response && err.response.status == 403) ||
+    (err.response && err.response.status == 404)
   ) {
-    return {
-      redirect: {
-        destination: '/404',
-        permanent: false
-      }
-    };
-  } else {
-    return {
-      redirect: {
-        destination: '/error',
-        permanent: false
-      }
-    };
+    // await navigateTo('/404');
+    location.assign('/404');
   }
 }
 
@@ -222,7 +207,10 @@ export function notifyMe(notification: any) {
   }
 }
 
-export const simpleDateFormat = (date: string, slash: boolean = false) => {
+export const simpleDateFormat = (
+  date: string | number,
+  slash: boolean = false
+) => {
   const day = new Date(date).getDate();
   const month = new Date(date).getMonth() + 1;
   const year = new Date(date).getFullYear();
@@ -236,7 +224,10 @@ export const simpleDateFormat = (date: string, slash: boolean = false) => {
       }-${year}`;
 };
 
-export const monthFirstDateFormat = (date: string, slash: boolean = false) => {
+export const monthFirstDateFormat = (
+  date: string | number,
+  slash: boolean = false
+) => {
   const day = new Date(date).getDate();
   const month = new Date(date).getMonth() + 1;
   const year = new Date(date).getFullYear();
@@ -250,7 +241,10 @@ export const monthFirstDateFormat = (date: string, slash: boolean = false) => {
       }-${year}`;
 };
 
-export const yearFirstDateFormat = (date: string, slash: boolean = false) => {
+export const yearFirstDateFormat = (
+  date: string | number,
+  slash: boolean = false
+) => {
   const day = new Date(date).getDate();
   const month = new Date(date).getMonth() + 1;
   const year = new Date(date).getFullYear();
