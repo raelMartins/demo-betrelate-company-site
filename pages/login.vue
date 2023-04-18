@@ -59,7 +59,16 @@ const loginToCompanyAccount = catchAsyncError(async (e: any) => {
         <div class="form_field">
           <label>Password</label>
           <input type="password" v-model="password" />
-          <!-- autoComplete="new-password" -->
+          <NuxtLink
+            href="/reset-password"
+            style="
+              text-align: right;
+              font-weight: 500;
+              font-size: 1.6rem;
+              margin: 1rem 0rem;
+            "
+            >Forgot Password?</NuxtLink
+          >
         </div>
         <div class="submit_button">
           <button @click="loginToCompanyAccount">Login</button>
