@@ -30,8 +30,8 @@ const getAvailableAdPlacements = async () => {
   }
 };
 
-onMounted(() => {
-  getAvailableAdPlacements();
+onMounted(async () => {
+  await getAvailableAdPlacements();
 });
 
 const togglePlacement = (placement: any) => {

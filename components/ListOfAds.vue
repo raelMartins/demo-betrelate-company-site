@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const ads: any = ref([]);
 const noOfAds = ref(0);
-const status = ref('all');
+const status = ref('pending');
 const loading = ref(false);
 
 const switchTab = async (tab: string) => {
@@ -75,8 +75,8 @@ const activestyle = 'background-color: var(--primary-color); color: white';
     <ul class="list_of_ads">
       <OverlayLoader :loading="loading" />
       <li class="ad_list_item" v-for="advert in ads">
-        <div class="company_image">
-          <img :src="advert.asset" alt="company-image" />
+        <div class="advert_image">
+          <img :src="advert.asset" alt="advert-image" />
         </div>
         <div class="ad_date">
           <span class="caption">Start Date</span>
@@ -88,7 +88,7 @@ const activestyle = 'background-color: var(--primary-color); color: white';
         </div>
         <div class="ad_status">
           <span class="caption">Status</span>
-          <span class="status">{{ advert.status }}</span>
+          <span :class="`status ${advert.status}`">{{ advert.status }}</span>
         </div>
         <div class="ad_action">
           <span class="caption">Action</span>
@@ -173,7 +173,7 @@ const activestyle = 'background-color: var(--primary-color); color: white';
     padding: 1.6rem 3rem;
     margin-left: -3rem;
     width: 100%;
-    .company_image {
+    .advert_image {
       @include centerImage;
       width: 6rem;
       height: 6rem;
@@ -212,8 +212,23 @@ const activestyle = 'background-color: var(--primary-color); color: white';
         // border: 0.1rem solid #dadada;
         border-radius: 0.4rem;
         color: #dc8744;
-        background-color: #fff3d2;
+        background: #fff3d2;
         border: 0.1rem solid #f6c358;
+      }
+      .pending {
+        color: #999999;
+        background: #dadada;
+        border: 0.1rem solid #dadada;
+      }
+      .rejected {
+        color: var(--error-color);
+        background-color: #ffebe9;
+        border: 0.1rem solid var(--error-color);
+      }
+      .completed {
+        color: var(--success-color);
+        background-color: #e7ffeb;
+        border: 0.1rem solid var(--success-color);
       }
     }
     .ad_action {

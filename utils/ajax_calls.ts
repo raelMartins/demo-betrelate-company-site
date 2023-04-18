@@ -190,6 +190,25 @@ export const getAds = async (token: string | null, info: any = {}) => {
   }
   return data.value;
 };
+export const getSingleAd = async (
+  token: string | null,
+  adID: string | string[]
+) => {
+  const { data, pending, error, refresh } = await useFetch(
+    '/company/advert/getSingleAdItem',
+    {
+      method: 'GET',
+      headers: { Authorization: 'Bearer ' + token },
+      baseURL: useRuntimeConfig().BASE_URL,
+      query: { adID }
+    }
+  );
+
+  if (error.value) {
+    throw new Error(error.value.message);
+  }
+  return data.value;
+};
 
 export const getAdPlacements = async (token: string | null) => {
   const { data, pending, error, refresh } = await useFetch(
@@ -276,4 +295,11 @@ export const createAdvert = async (token: string | null, data: any) => {
   });
 
   return res.data;
+};
+
+export const cancelAdvert = async (token: string | null, adID: string) => {
+  const res = await axios({
+    method: 'PATCH',
+    url: `${useRuntimeConfig().BASE_URL}`
+  });
 };
