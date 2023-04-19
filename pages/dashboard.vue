@@ -1,6 +1,11 @@
 <script setup lang="ts">
 definePageMeta({
+  title: 'Dashboard',
   layout: 'dashboard-layout'
+});
+useServerSeoMeta({
+  description: "View your company's dashboard",
+  ogDescription: "View your company's dashboard"
 });
 </script>
 <template>

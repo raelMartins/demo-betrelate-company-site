@@ -54,7 +54,7 @@ const createCompanyAccount = catchAsyncError(async (e: any) => {
   toast.success('Account Created Successfully');
 
   //navigate to the user's dashboard
-  location.assign('/upload-company-image');
+  location.assign('/verify-email');
 });
 </script>
 

@@ -104,6 +104,9 @@ const createThisAdvert = catchAsyncError(async (e: any) => {
 
 <template>
   <section class="create_ad_page">
+    <Head>
+      <Title>Create New Advert</Title>
+    </Head>
     <div class="header_text">
       <h1>
         <NuxtLink :href="`/ads`" class="back_button">
@@ -482,7 +485,7 @@ const createThisAdvert = catchAsyncError(async (e: any) => {
         background-color: var(--primary-color);
         min-height: 19rem;
         color: white;
-        padding: 2rem 1rem;
+        padding: 2rem;
         @include tablet {
           padding: 2rem;
         }
@@ -514,12 +517,16 @@ const createThisAdvert = catchAsyncError(async (e: any) => {
             gap: 1rem;
             .selected_placement_details {
               display: flex;
-              align-items: center;
               flex-wrap: wrap;
               gap: 1.7rem;
               font-weight: 500;
               font-size: 1.4rem;
               line-height: 1.6rem;
+              flex-direction: column;
+              @include largephone {
+                flex-direction: row;
+                align-items: center;
+              }
             }
           }
         }

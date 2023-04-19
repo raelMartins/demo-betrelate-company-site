@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const ads: any = ref([]);
 const noOfAds = ref(0);
-const status = ref('pending');
+const status = ref('');
 const loading = ref(false);
 
 const switchTab = async (tab: string) => {
@@ -39,8 +39,8 @@ const activestyle = 'background-color: var(--primary-color); color: white';
     <div class="ad_filters">
       <span
         class="filter_option"
-        @click="switchTab('all')"
-        :style="status === 'all' ? activestyle : ``"
+        @click="switchTab('')"
+        :style="status === '' ? activestyle : ``"
         >All</span
       >
       <span
@@ -51,21 +51,21 @@ const activestyle = 'background-color: var(--primary-color); color: white';
       >
       <span
         class="filter_option"
-        @click="switchTab('ongoing')"
-        :style="status === 'ongoing' ? activestyle : ``"
-        >Ongoing</span
+        @click="switchTab('active')"
+        :style="status === 'active' ? activestyle : ``"
+        >Active</span
       >
-      <span
+      <!-- <span
         class="filter_option"
         @click="switchTab('completed')"
         :style="status === 'completed' ? activestyle : ``"
         >Completed</span
-      >
+      > -->
       <span
         class="filter_option"
         @click="switchTab('rejected')"
         :style="status === 'rejected' ? activestyle : ``"
-        >Rejected</span
+        >Inactive</span
       >
     </div>
     <div class="ad_total">
@@ -78,11 +78,11 @@ const activestyle = 'background-color: var(--primary-color); color: white';
         <div class="advert_image">
           <img :src="advert.asset" alt="advert-image" />
         </div>
-        <div class="ad_date">
+        <div class="ad_date start">
           <span class="caption">Start Date</span>
           <span class="date">{{ simpleDateFormat(advert.startDate) }}</span>
         </div>
-        <div class="ad_date">
+        <div class="ad_date end">
           <span class="caption">End Date</span>
           <span class="date">{{ simpleDateFormat(advert.endDate) }}</span>
         </div>
@@ -93,7 +93,7 @@ const activestyle = 'background-color: var(--primary-color); color: white';
         <div class="ad_action">
           <span class="caption">Action</span>
           <NuxtLink :href="`/ads/${advert.adID}`" class="action">
-            View Details
+            View <span>Details</span>
           </NuxtLink>
         </div>
       </li>
@@ -106,11 +106,14 @@ const activestyle = 'background-color: var(--primary-color); color: white';
 
 .ads_list {
   background-color: white;
-  padding: 4rem 3rem;
   border-radius: 1rem;
   min-height: 50rem;
   // height: 100%;
   height: 100%;
+  padding: 4rem 1rem;
+  @include tablet {
+    padding: 4rem 3rem;
+  }
   .ad_filters {
     align-items: center;
     gap: 0.8rem;
@@ -165,14 +168,14 @@ const activestyle = 'background-color: var(--primary-color); color: white';
   }
   .ad_list_item {
     color: #404040;
-    align-items: center;
     display: flex;
-    align-items: center;
     gap: 1.7rem;
     border-bottom: 0.1rem solid #eeeeee;
-    padding: 1.6rem 3rem;
-    margin-left: -3rem;
+    padding: 1.6rem 0.6rem;
     width: 100%;
+    @include tablet {
+      padding: 1.6rem 3rem;
+    }
     .advert_image {
       @include centerImage;
       width: 6rem;
@@ -199,6 +202,18 @@ const activestyle = 'background-color: var(--primary-color); color: white';
         color: #999999;
       }
     }
+    .ad_date.start {
+      display: none;
+      @include largephone {
+        display: flex;
+      }
+      @include laptop {
+        display: none;
+      }
+      @include desktop {
+        display: flex;
+      }
+    }
     .ad_status {
       .status {
         text-transform: capitalize;
@@ -207,7 +222,8 @@ const activestyle = 'background-color: var(--primary-color); color: white';
         line-height: 1.4rem;
         text-align: center;
         // color: #999999;
-        padding: 0.6rem 1.7rem;
+        padding: 0.6rem 1.4rem;
+        min-width: max-content;
         // background: #dadada;
         // border: 0.1rem solid #dadada;
         border-radius: 0.4rem;
@@ -232,10 +248,19 @@ const activestyle = 'background-color: var(--primary-color); color: white';
       }
     }
     .ad_action {
+      flex: none;
       text-decoration: underline;
       font-weight: 500;
       font-size: 1.6rem;
       line-height: 1.9rem;
+      a > span {
+        display: none;
+      }
+      @include desktop {
+        a > span {
+          display: inline;
+        }
+      }
     }
     @include tablet {
       flex-direction: row;

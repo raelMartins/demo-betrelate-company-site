@@ -97,10 +97,13 @@ const activestyle = 'background-color: var(--primary-color); color: white';
 
 .transactions_list {
   background-color: white;
-  padding: 4rem 3rem;
   border-radius: 1rem;
   min-height: 30rem;
   height: 100%;
+  padding: 4rem 1rem;
+  @include tablet {
+    padding: 4rem 3rem;
+  }
   .transactions_header {
     padding: 2.2rem 3rem;
     margin-left: -3rem;

@@ -151,7 +151,7 @@ const verifyCompanyEmail = catchAsyncError(async (e: any) => {
   toast.success('Your email has been verified!');
 
   //redirect to dashboard
-  location.assign('dashboard');
+  location.assign('/upload-company-image');
 });
 </script>
 

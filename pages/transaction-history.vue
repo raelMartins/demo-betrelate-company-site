@@ -1,6 +1,11 @@
 <script setup lang="ts">
 definePageMeta({
+  title: 'Transaction History',
   layout: 'dashboard-layout'
+});
+useServerSeoMeta({
+  description: "View your company's transaction history",
+  ogDescription: "View your company's transaction history"
 });
 </script>
 <template>

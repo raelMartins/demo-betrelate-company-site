@@ -1,6 +1,11 @@
 <script setup lang="ts">
 definePageMeta({
+  title: 'Adverts',
   layout: 'dashboard-layout'
+});
+useServerSeoMeta({
+  description: "View your company's adverts",
+  ogDescription: "View your company's adverts"
 });
 </script>
 

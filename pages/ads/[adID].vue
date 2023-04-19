@@ -13,11 +13,14 @@ getAdvertDetails();
 
 const cancelCompanyAdvert = catchAsyncError(async () => {
   // const res = await
-})
+});
 </script>
 
 <template>
   <section class="view_ad_page">
+    <Head>
+      <Title>Advert Insight</Title>
+    </Head>
     <div class="header_text">
       <h1>
         <NuxtLink :href="`/ads`" class="back_button">
@@ -31,27 +34,31 @@ const cancelCompanyAdvert = catchAsyncError(async () => {
         <div class="advert_image">
           <img :src="adDetails.asset" alt="advert-image" />
         </div>
-        <div class="ad_date">
-          <span class="caption">Start Date</span>
-          <span class="date">{{ simpleDateFormat(adDetails.startDate) }}</span>
-        </div>
-        <div class="ad_date">
-          <span class="caption">End Date</span>
-          <span class="date">{{ simpleDateFormat(adDetails.endDate) }}</span>
-        </div>
-        <div class="ad_status">
-          <span class="caption">Status</span>
-          <span :class="`status ${adDetails.status}`">{{
-            adDetails.status
-          }}</span>
-        </div>
-        <div class="ad_action">
-          <span class="caption">Action</span>
-          <div class="action_options">
-            <NuxtLink :href="`/ads/${route.params.adID}`" class="action">
-              Edit
-            </NuxtLink>
-            <span><i class="pi pi-trash"></i></span>
+        <div class="advert_overview_details">
+          <div class="ad_date start">
+            <span class="caption">Start Date</span>
+            <span class="date">{{
+              simpleDateFormat(adDetails.startDate)
+            }}</span>
+          </div>
+          <div class="ad_date end">
+            <span class="caption">End Date</span>
+            <span class="date">{{ simpleDateFormat(adDetails.endDate) }}</span>
+          </div>
+          <div class="ad_status">
+            <span class="caption">Status</span>
+            <span :class="`status ${adDetails.status}`">{{
+              adDetails.status
+            }}</span>
+          </div>
+          <div class="ad_action">
+            <span class="caption">Action</span>
+            <div class="action_options">
+              <NuxtLink :href="`/ads/${route.params.adID}`" class="action">
+                Edit
+              </NuxtLink>
+              <span><i class="pi pi-trash"></i></span>
+            </div>
           </div>
         </div>
       </div>
@@ -166,92 +173,115 @@ const cancelCompanyAdvert = catchAsyncError(async () => {
     display: flex;
     flex-direction: column;
   }
-  .advert_overview {
+  .advert_overview,
+  .advert_overview_details {
     color: #404040;
     align-items: center;
     display: flex;
     align-items: center;
     gap: 1.7rem;
     border-bottom: 0.1rem solid #eeeeee;
-    padding: 1.6rem 3rem;
     width: 100%;
     background-color: white;
     border-radius: 1rem;
-    .advert_image {
-      @include centerImage;
-      width: 6rem;
-      height: 6rem;
-      border-radius: 1rem;
-    }
-    .ad_date,
-    .ad_status,
-    .ad_action {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      font-weight: 500;
-      font-size: 1.4rem;
-      line-height: 1.6rem;
-      color: #404040;
-      gap: 1.2rem;
-      align-items: flex-start;
-      .caption {
-        text-transform: uppercase;
-        font-weight: 500;
-        font-size: 1.2rem;
-        line-height: 1.4rem;
-        color: #999999;
-      }
-    }
-    .ad_status {
-      .status {
-        text-transform: capitalize;
-        font-weight: 500;
-        font-size: 1.2rem;
-        line-height: 1.4rem;
-        text-align: center;
-        padding: 0.6rem 1.7rem;
-        border-radius: 0.4rem;
-        color: #dc8744;
-        background: #fff3d2;
-        border: 0.1rem solid #f6c358;
-      }
-      .pending {
-        color: #999999;
-        background: #dadada;
-        border: 0.1rem solid #dadada;
-      }
-      .rejected {
-        color: var(--error-color);
-        background-color: #ffebe9;
-        border: 0.1rem solid var(--error-color);
-      }
-      .completed {
-        color: var(--success-color);
-        background-color: #e7ffeb;
-        border: 0.1rem solid var(--success-color);
-      }
-    }
-    .ad_action {
-      text-decoration: underline;
-      font-weight: 500;
-      font-size: 1.6rem;
-      line-height: 1.9rem;
-      .action_options {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        .pi {
-          font-size: 1.8rem;
-          cursor: pointer;
-          color: var(--primary-color);
-        }
-      }
-    }
+  }
+  .advert_overview {
+    flex-direction: column;
+    padding: 1.6rem 1rem;
+
     @include tablet {
       flex-direction: row;
+      padding: 1.6rem 3rem;
     }
   }
+  .advert_image {
+    @include centerImage;
+    border-radius: 1rem;
+    width: 100%;
+    height: auto;
+    @include tablet {
+      width: 6rem;
+      height: 6rem;
+    }
+  }
+  .advert_overview_details {
+  }
+  .ad_date,
+  .ad_status,
+  .ad_action {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    color: #404040;
+    gap: 1.2rem;
+    align-items: flex-start;
+    .caption {
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: 1.2rem;
+      line-height: 1.4rem;
+      color: #999999;
+    }
+  }
+  .ad_date.end {
+    display: none;
+    @include largephone {
+      display: flex;
+    }
+  }
+  .ad_status {
+    .status {
+      text-transform: capitalize;
+      font-weight: 500;
+      font-size: 1.2rem;
+      line-height: 1.4rem;
+      text-align: center;
+      padding: 0.6rem 1.7rem;
+      border-radius: 0.4rem;
+      color: #dc8744;
+      background: #fff3d2;
+      border: 0.1rem solid #f6c358;
+    }
+    .pending {
+      color: #999999;
+      background: #dadada;
+      border: 0.1rem solid #dadada;
+    }
+    .rejected {
+      color: var(--error-color);
+      background-color: #ffebe9;
+      border: 0.1rem solid var(--error-color);
+    }
+    .completed {
+      color: var(--success-color);
+      background-color: #e7ffeb;
+      border: 0.1rem solid var(--success-color);
+    }
+  }
+  .ad_action {
+    flex: none;
+    text-decoration: underline;
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    .action_options {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      .pi {
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: var(--primary-color);
+      }
+    }
+  }
+  @include tablet {
+    flex-direction: row;
+  }
+
   .advert_details {
     display: flex;
     gap: 1.3rem;
@@ -282,12 +312,14 @@ const cancelCompanyAdvert = catchAsyncError(async () => {
       align-items: center;
       border-bottom: 0.1rem solid #999999;
       padding-bottom: 1rem;
-
+      gap: 1rem;
+      max-width: 100%;
       .audience_left,
       .audience_right {
         flex: 1;
+        max-width: 50%;
+        min-width: 50%;
       }
-
       .audience_reach_stat {
         display: flex;
         justify-content: space-between;
